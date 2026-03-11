@@ -1,0 +1,138 @@
+import { Link } from "react-router-dom";
+import { Github, Mail, MessageCircle, Twitter, Youtube, ExternalLink } from "lucide-react";
+
+const footerLinks = {
+  learn: {
+    title: "Обучение",
+    links: [
+      { label: "Все курсы", href: "/courses" },
+      { label: "Примеры кода", href: "/code-examples" },
+      { label: "Математика RL", href: "/math-rl" },
+      { label: "Алгоритмы", href: "/algorithms" },
+      { label: "Unity проекты", href: "/unity-projects" },
+    ],
+  },
+  resources: {
+    title: "Ресурсы",
+    links: [
+      { label: "Блог", href: "/blog" },
+      { label: "FAQ", href: "/faq" },
+      { label: "Визуализации", href: "/visualizations" },
+      { label: "PyTorch", href: "/pytorch" },
+      { label: "Onboarding-тест", href: "/onboarding" },
+    ],
+  },
+  community: {
+    title: "Сообщество",
+    links: [
+      { label: "Сообщество", href: "/community" },
+      { label: "Тарифы", href: "/pricing" },
+    ],
+  },
+};
+
+const socialLinks = [
+  { icon: Github, href: "https://github.com", label: "GitHub" },
+  { icon: Twitter, href: "https://twitter.com", label: "Twitter" },
+  { icon: Youtube, href: "https://youtube.com", label: "YouTube" },
+  { icon: MessageCircle, href: "https://discord.gg", label: "Discord" },
+  { icon: Mail, href: "mailto:support@rlplatform.ru", label: "Email" },
+];
+
+const FooterSection = () => {
+  return (
+    <footer className="border-t border-border bg-card/30 backdrop-blur-sm py-16 px-4">
+      <div className="container mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+          {/* Brand */}
+          <div className="space-y-4">
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 rounded-full bg-primary animate-glow-pulse" />
+              <span className="text-lg font-bold bg-gradient-neon bg-clip-text text-transparent">
+                RL Platform
+              </span>
+            </div>
+            <p className="text-muted-foreground text-sm leading-relaxed">
+              Практическая платформа для изучения Reinforcement Learning. 
+              PyTorch + Unity ML-Agents.
+            </p>
+            <div className="flex gap-3 flex-wrap">
+              {socialLinks.map((s) => {
+                const Icon = s.icon;
+                return (
+                  <a
+                    key={s.label}
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={s.label}
+                    className="w-9 h-9 rounded-lg bg-card border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/50 hover:shadow-glow-cyan transition-all duration-300"
+                  >
+                    <Icon className="w-4 h-4" />
+                  </a>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Link columns */}
+          {Object.values(footerLinks).map((group) => (
+            <div key={group.title} className="space-y-4">
+              <h4 className="font-semibold text-foreground text-sm">{group.title}</h4>
+              <ul className="space-y-2.5">
+                {group.links.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      to={link.href}
+                      className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        {/* Contact row */}
+        <div className="py-6 border-t border-border/50 mb-6 flex flex-col sm:flex-row items-start sm:items-center gap-4 text-sm text-muted-foreground">
+          <span>📧 Поддержка:</span>
+          <a href="mailto:support@rlplatform.ru" className="hover:text-primary transition-colors duration-200">
+            support@rlplatform.ru
+          </a>
+          <span className="hidden sm:inline text-border">|</span>
+          <a
+            href="https://github.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 hover:text-primary transition-colors duration-200"
+          >
+            <Github className="w-4 h-4" />
+            GitHub репозиторий
+            <ExternalLink className="w-3 h-3" />
+          </a>
+        </div>
+
+        {/* Bottom */}
+        <div className="pt-6 border-t border-border/50">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <div className="text-xs text-muted-foreground">
+              © {new Date().getFullYear()} RL Learning Platform. Все права защищены.
+            </div>
+            <div className="flex gap-6">
+              <span className="text-xs text-muted-foreground">
+                Политика конфиденциальности
+              </span>
+              <span className="text-xs text-muted-foreground">
+                Условия использования
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+export default FooterSection;
